@@ -9,9 +9,9 @@ export const photos = observable<{ [keyword: string]: IPhoto[] }>({
 });
 
 export const searchPhotos = async (keyword?: string) => {
-  const url = `${BASE_URL}/?key=${Config.PIXABAY_API_KEY}&safesearch=true${
-    keyword ? `&q=${keyword}` : ''
-  }`;
+  const url = `${BASE_URL}/?key=${
+    Config.PIXABAY_API_KEY
+  }&safesearch=true&per_page=4${keyword ? `&q=${keyword}` : ''}`;
   const response = await fetch(url);
 
   const data = await response.json();
