@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { Image } from '../components/image.component';
 import { IPhoto } from '../types/photos.types';
-import { FlatList, Route } from 'react-native';
+import { FlatList } from 'react-native';
 import { photos, searchPhotos } from '../stores/photo.store';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigator.types';
@@ -13,21 +13,23 @@ export const Results: FC = observer(() => {
   const navigation = useNavigation();
 
   const renderPhoto = ({ item }: { item: IPhoto }) => {
-    console.log('item', JSON.stringify(item, null, 2));
     return <Image image={item} />;
   };
 
   useEffect(() => {
-    if (params?.keyword) {
-      navigation.setOptions({ title: params?.keyword });
-      searchPhotos(params?.keyword);
+    if (params?.category) {
+      navigation.setOptions({ title: params?.category });
+      searchPhotos({
+        category: params?.category,
+        keyword: params?.category,
+      });
     }
   }, []);
 
   return (
     <FlatList
       keyExtractor={(photo) => photo.id.toString()}
-      data={photos[params?.keyword] || []}
+      data={photos[params?.category] || []}
       renderItem={renderPhoto}
       style={{ flex: 1 }}
       ItemSeparatorComponent={Separator}

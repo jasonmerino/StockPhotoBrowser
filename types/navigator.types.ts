@@ -1,4 +1,4 @@
 export type RootStackParamList = {
   Home: undefined;
-  Results: { keyword: string };
+  Results: { category: string };
 };

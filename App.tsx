@@ -7,6 +7,7 @@ import { Home } from './screens/home.screen';
 import { Provider } from 'mobx-react';
 import { Results } from './screens/results.screen';
 import { RootStackParamList } from './types/navigator.types';
+import { dark3 } from './theme/colors';
 
 const AppStack = createStackNavigator<RootStackParamList>();
 
@@ -14,7 +15,12 @@ export default function App() {
   return (
     <Provider>
       <NavigationContainer>
-        <AppStack.Navigator>
+        <AppStack.Navigator
+          screenOptions={{
+            headerBackTitleVisible: false,
+            headerTintColor: dark3,
+          }}
+        >
           <AppStack.Screen
             options={{
               header: () => null,

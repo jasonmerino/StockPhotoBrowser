@@ -5,6 +5,8 @@ import { Image } from '../components/image.component';
 import { observer } from 'mobx-react';
 import { IPhoto } from '../types/photos.types';
 import { Explore } from '../components/explore.component';
+import { SectionHeading } from '../components/section-heading.component';
+import { Separator } from '../components/separator.component';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
 
 export const Home = observer(() => {
   useEffect(() => {
-    searchPhotos();
+    searchPhotos({});
   }, []);
 
   const renderPhoto = ({ item }: { item: IPhoto }) => (
@@ -23,12 +25,18 @@ export const Home = observer(() => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Explore />
       <FlatList
         keyExtractor={(photo) => photo.id.toString()}
         data={photos.default}
         style={styles.container}
         renderItem={renderPhoto}
+        ListHeaderComponent={
+          <>
+            <Explore />
+            <SectionHeading>New</SectionHeading>
+          </>
+        }
+        ItemSeparatorComponent={Separator}
       />
     </SafeAreaView>
   );
